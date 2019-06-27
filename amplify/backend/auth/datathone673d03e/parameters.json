@@ -1,6 +1,6 @@
 {
     "identityPoolName": "datathone673d03e_identitypool_e673d03e",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "lambdaLogPolicy": "datath_e673d03e_lambda_log_policy",
     "openIdLambdaRoleName": "datath_e673d03e_openid_lambda_role",
     "openIdRolePolicy": "datath_e673d03e_openid_pass_role_policy",

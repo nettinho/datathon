@@ -15,5 +15,12 @@
                 "datathone673d03e": {}
             }
         }
+    },
+    "undefined": {
+        "categories": {
+            "auth": {
+                "cognito6500a38f": {}
+            }
+        }
     }
 }
