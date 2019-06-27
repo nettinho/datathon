@@ -5,9 +5,11 @@ import 'semantic-ui-css/semantic.min.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import AWS from 'aws-sdk';
+import Auth from '@aws-amplify/auth';
+import awsconfig from './aws-exports';
 
-AWS.config.loadFromPath('./aws-config.json');
+Auth.configure(awsconfig);
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
