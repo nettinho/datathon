@@ -6,7 +6,15 @@ const awsmobile = {
     "aws_cognito_region": "eu-west-1",
     "aws_user_pools_id": "eu-west-1_TzBtSu4YK",
     "aws_user_pools_web_client_id": "2972rb1hm2labi4hh95khavic6",
-    "oauth": {}
+    "oauth": {},
+    "aws_bots": "enable",
+    "aws_bots_config": [
+        {
+            "name": "BookTrip_dev",
+            "alias": "$LATEST",
+            "region": "eu-west-1"
+        }
+    ]
 };
 
 

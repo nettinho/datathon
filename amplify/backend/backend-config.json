@@ -4,5 +4,12 @@
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
+	},
+	"interactions": {
+		"lex798518d8": {
+			"service": "Lex",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		}
 	}
 }
