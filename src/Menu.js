@@ -10,10 +10,11 @@ const rutas = [
 ]
 const ArcadiaMenu = ({location: {pathname}}) => (
   <Menu pointing secondary>
-    {rutas.map( ({name, to}) => 
+    {rutas.map( ({name, to}, key) => 
       <Menu.Item 
+        key={key}
         name={name}
-        active={pathname == to} 
+        active={pathname === to} 
         as={Link} 
         to={to}
       />)
