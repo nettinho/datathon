@@ -1,31 +1,39 @@
 import React from 'react'
 import AWS from 'aws-sdk';
+import Auth from '@aws-amplify/auth';
 
 export default () => {
   const DetectFaces = (imageData) => {
-    AWS.region = "eu-west-1";
-    var rekognition = new AWS.Rekognition();
-    var params = {
-      Image: {
-        Bytes: imageData
-      },
-      Attributes: [
-        'ALL',
-      ]
-    };
-    rekognition.detectFaces(params, function (err, data) {
-      if (err) console.log(err, err.stack); // an error occurred
-      else {
-       var table = "<table><tr><th>Low</th><th>High</th></tr>";
-        // show each face and build out estimated age table
-        for (var i = 0; i < data.FaceDetails.length; i++) {
-          table += '<tr><td>' + data.FaceDetails[i].AgeRange.Low +
-            '</td><td>' + data.FaceDetails[i].AgeRange.High + '</td></tr>';
+    Auth.currentCredentials()
+    .then(credentials => {
+      var rekognition = new AWS.Rekognition({
+        credentials: Auth.essentialCredentials(credentials)
+      });
+
+
+      var params = {
+        Image: {
+          Bytes: imageData
+        },
+        Attributes: [
+          'ALL',
+        ]
+      };
+      rekognition.detectFaces(params, function (err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else {
+        var table = "<table><tr><th>Low</th><th>High</th></tr>";
+          // show each face and build out estimated age table
+          for (var i = 0; i < data.FaceDetails.length; i++) {
+            table += '<tr><td>' + data.FaceDetails[i].AgeRange.Low +
+              '</td><td>' + data.FaceDetails[i].AgeRange.High + '</td></tr>';
+          }
+          table += "</table>";
+          document.getElementById("opResult").innerHTML = table;
         }
-        table += "</table>";
-        document.getElementById("opResult").innerHTML = table;
-      }
-    });
+      });
+
+    })
   }
   const imageSelected=(e)=>{
     const file = e.target.files[0];
