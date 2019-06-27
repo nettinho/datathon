@@ -8,6 +8,7 @@ const rutas = [
   {name: "Test", to: "/test"},
   {name: "Rekognition", to: "/rekognition"},
   {name: "Chatbot", to: "/chatbot"},
+  {name: "ChatbotEs", to: "/chatbot_es"},
 ]
 const ArcadiaMenu = ({location: {pathname}}) => (
   <Menu pointing secondary>
