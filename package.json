@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "aws-sdk": "^2.483.0",
-    "lodash-fp": "^0.10.4",
+    "lodash": "^4.17.11",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
