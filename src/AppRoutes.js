@@ -8,7 +8,7 @@ import SentimentAnalysis from './sentiment_analysis/SentimentAnalysis';
 import Rekognition from './rekognition/Rekognition'
 import Chatbot from './chatbot/Chatbot'
 import ChatbotEs from './chatbot_es/ChatbotEs'
-import Textract from './textract/Textract'
+import Traductor from './traductor/Traductor'
 
 
 const AppRoutes = () => (<>
@@ -18,7 +18,7 @@ const AppRoutes = () => (<>
   <Route exact path='/rekognition' component={Rekognition} />
   <Route exact path='/chatbot' component={Chatbot} />
   <Route exact path='/chatbot_es' component={ChatbotEs} />
-  <Route exact path='/textract' component={Rekognition} />
+  <Route exact path='/traductor' component={Traductor} />
 </>);
 
 export default AppRoutes
