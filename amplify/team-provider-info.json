@@ -9,6 +9,11 @@
             "UnauthRoleName": "datathon-dev-20190627123445-unauthRole",
             "StackName": "datathon-dev-20190627123445",
             "StackId": "arn:aws:cloudformation:eu-west-1:368503660681:stack/datathon-dev-20190627123445/2e65fb20-98c7-11e9-9359-0a0cb138cf0a"
+        },
+        "categories": {
+            "auth": {
+                "datathone673d03e": {}
+            }
         }
     }
 }

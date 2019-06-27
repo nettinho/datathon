@@ -6,22 +6,25 @@ export default () => {
   const DetectFaces = (imageData) => {
     Auth.currentCredentials()
     .then(credentials => {
-      var rekognition = new AWS.Rekognition({
-        credentials: Auth.essentialCredentials(credentials)
-      });
+      console.log("CREDENTIALS", credentials)
+      console.log("CREDENTIALS", Auth.essentialCredentials(credentials))
+      var rekognition = new AWS.Rekognition(
+        new AWS.Config({
+          region: "eu-west-1",
+          credentials: Auth.essentialCredentials(credentials),
+        })
+      );
 
 
       var params = {
         Image: {
           Bytes: imageData
-        },
-        Attributes: [
-          'ALL',
-        ]
+        }
       };
-      rekognition.detectFaces(params, function (err, data) {
+      rekognition.detectLabels(params, function (err, data) {
         if (err) console.log(err, err.stack); // an error occurred
         else {
+          console.log("DATA",data)
         var table = "<table><tr><th>Low</th><th>High</th></tr>";
           // show each face and build out estimated age table
           for (var i = 0; i < data.FaceDetails.length; i++) {
