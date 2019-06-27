@@ -1,1 +1,8 @@
-{}
+{
+	"auth": {
+		"datathone673d03e": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
