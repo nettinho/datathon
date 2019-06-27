@@ -10,10 +10,14 @@ export class SentimentAnalysis extends React.Component {
             unputText: ""
         };
     }
+    handleChange(e, { value }) {
+        e.preventDefault();
+    }
+
     render() {
         return (
             <Form>
-                <TextArea placeholder='Put your text here' />
+                <TextArea onChange={this.handleChange} placeholder='Put your text here' />
             </Form>
         );
     }
