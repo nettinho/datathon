@@ -1,39 +1,31 @@
-import React from 'react'
+import React, {useState} from 'react'
 import AWS from 'aws-sdk';
 import Auth from '@aws-amplify/auth';
 
+import { Table, Progress } from 'semantic-ui-react'
+
 export default () => {
-  const DetectFaces = (imageData) => {
+  const [loading, setLoading] = useState(false)
+  const [data, setData] = useState(null)
+  const detectLabels = (imageData) => {
     Auth.currentCredentials()
     .then(credentials => {
-      console.log("CREDENTIALS", credentials)
-      console.log("CREDENTIALS", Auth.essentialCredentials(credentials))
       var rekognition = new AWS.Rekognition(
         new AWS.Config({
           region: "eu-west-1",
           credentials: Auth.essentialCredentials(credentials),
         })
       );
-
-
       var params = {
         Image: {
           Bytes: imageData
         }
       };
-      rekognition.detectLabels(params, function (err, data) {
+      setLoading(true)
+      rekognition.detectLabels(params, (err, data) => {
+        setLoading(false)
         if (err) console.log(err, err.stack); // an error occurred
-        else {
-          console.log("DATA",data)
-        var table = "<table><tr><th>Low</th><th>High</th></tr>";
-          // show each face and build out estimated age table
-          for (var i = 0; i < data.FaceDetails.length; i++) {
-            table += '<tr><td>' + data.FaceDetails[i].AgeRange.Low +
-              '</td><td>' + data.FaceDetails[i].AgeRange.High + '</td></tr>';
-          }
-          table += "</table>";
-          document.getElementById("opResult").innerHTML = table;
-        }
+        else setData(data)
       });
 
     })
@@ -69,14 +61,33 @@ export default () => {
           ua[i] = image.charCodeAt(i);
         }
         //Call Rekognition  
-        DetectFaces(imageBytes);
+        detectLabels(imageBytes);
       };
     })(file);
     reader.readAsDataURL(file);
   }
   return <>
     <h1>Rekognition</h1>
-    <input type="file" accept="image/*" onChange={imageSelected}/>
-    <div id="opResult" />
+    {!loading 
+      ? <input type="file" accept="image/*" onChange={imageSelected}/>
+      : <Progress percent={100} indicating />}
+    {data && 
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Confidence</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {data.Labels.map( ({Name, Confidence}, key) => (
+            <Table.Row key={key}>
+              <Table.Cell>{Name}</Table.Cell>
+              <Table.Cell>{Confidence}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    }
   </>
 }
